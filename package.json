@@ -1,0 +1,53 @@
+{
+  "name": "tprb2",
+  "author": "Ignacio Bustos",
+  "version": "1.0.0",
+  "description": "Manejo de reservas de paseos caninos mediante sistema especializado",
+  "keywords": [
+    "Reserva",
+    "Paseo",
+    "Perros",
+    "Manejo",
+    "Horas",
+    "Proyecto",
+    "Sistema",
+    "Especializado",
+    "Gestión",
+    "Caninos"
+  ],
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "eslintConfig": {
+    "extends": [
+      "./node_modules/standard/eslintrc.json"
+    ],
+    "env": {
+      "jest": true
+    }
+  },
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node iondex.js",
+    "test": "vitest --run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest --coverage --run"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^1.6.0",
+    "nodemon": "^3.1.4",
+    "standard": "^17.1.0",
+    "supertest": "^7.0.0",
+    "vitest": "^1.6.0"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "pg": "^8.12.0",
+    "pg-format": "^1.0.4"
+  }
+}

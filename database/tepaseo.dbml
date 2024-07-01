@@ -1,0 +1,72 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table "usuario" {
+  "id" SERIAL [increment]
+  "nombre" VARCHAR(100) [not null]
+  "email" VARCHAR(100) [unique, not null]
+  "pass" VARCHAR(255) [not null]
+  "telefono" VARCHAR(20)
+  "direccion" VARCHAR(255)
+  "rol" VARCHAR(50) [not null]
+  "created_at" TIMESTAMP [not null, default: `CURRENT_TIMESTAMP`]
+  "updated_at" TIMESTAMP [not null, default: `CURRENT_TIMESTAMP`]
+
+  Indexes {
+    id [pk]
+  }
+}
+
+Table "mascota" {
+  "id" SERIAL [increment]
+  "usuario_id" INTEGER [not null]
+  "nombre" VARCHAR(100) [not null]
+  "raza" VARCHAR(50)
+  "edad" INTEGER
+  "peso" DECIMAL(5,2)
+  "genero" VARCHAR(15)
+  "created_at" TIMESTAMP [not null, default: `CURRENT_TIMESTAMP`]
+  "updated_at" TIMESTAMP [not null, default: `CURRENT_TIMESTAMP`]
+
+  Indexes {
+    id [pk]
+  }
+}
+
+Table "paseador" {
+  "id" SERIAL [increment]
+  "usuario_id" INTEGER [not null]
+  "experiencia" INTEGER [not null]
+  "preferencias" VARCHAR(500)
+  "created_at" TIMESTAMP [not null, default: `CURRENT_TIMESTAMP`]
+  "updated_at" TIMESTAMP [not null, default: `CURRENT_TIMESTAMP`]
+
+  Indexes {
+    id [pk]
+  }
+}
+
+Table "reserva" {
+  "id" SERIAL [increment]
+  "usuario_id" INTEGER [not null]
+  "paseador_id" INTEGER [not null]
+  "mascotas_id" INTEGER [not null]
+  "fecha_reserva" TIMESTAMP [not null]
+  "estado" VARCHAR(50) [not null]
+  "created_at" TIMESTAMP [not null, default: `CURRENT_TIMESTAMP`]
+  "updated_at" TIMESTAMP [not null, default: `CURRENT_TIMESTAMP`]
+
+  Indexes {
+    id [pk]
+  }
+}
+
+Ref "fk_mascota_usuario":"usuario"."id" < "mascota"."usuario_id"
+
+Ref "fk_paseador_usuario":"usuario"."id" < "paseador"."usuario_id"
+
+Ref "fk_reserva_usuario":"usuario"."id" < "reserva"."usuario_id"
+
+Ref "fk_reserva_paseador":"paseador"."id" < "reserva"."paseador_id"
+
+Ref "fk_reserva_mascota":"mascota"."id" < "reserva"."mascotas_id"
