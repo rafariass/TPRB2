@@ -10,14 +10,17 @@ export const findAll = async ({ limits = 10, order_by: orderBy = 'id_asc', page 
 
 export const findById = async (id) => db('SELECT * FROM mascota WHERE id = $1;', [id])
 
+export const findByUserId = async (id) =>
+  await db('SELECT m.* FROM mascota AS m INNER JOIN usuario AS u ON m.usuario_id = u.id WHERE u.id = $1;', [id])
+
 export const findByUserEmail = async (email) =>
   await db('SELECT m.* FROM mascota AS m INNER JOIN usuario AS u ON m.usuario_id = u.id WHERE u.email = $1;', [email])
 
-export const create = async ({ id, usuarioId, nombre, raza, edad, peso, genero }) => {
+export const create = async ({ usuarioId, nombre, raza, edad, peso, genero }) => {
   const sqlQuery = `
     INSERT INTO mascota (id, usuario_id, nombre, raza, edad, peso, genero, created_at, updated_at)
     VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, DEFAULT, DEFAULT) RETURNING *;`
-  return await db(sqlQuery, [id, usuarioId, nombre, raza, edad, peso, genero])
+  return await db(sqlQuery, [usuarioId, nombre, raza, edad, peso, genero])
 }
 
 export const updateById = async (id, { nombre, raza, edad, peso, genero }) => {

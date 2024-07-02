@@ -38,11 +38,11 @@ export const create = async ({ usuarioId, experiencia, preferencias }) => {
   return await db(sqlQuery, [usuarioId, experiencia, preferencias])
 }
 
-export const updateById = async (id, { nombre, raza, edad, peso, genero }) => {
+export const updateById = async (id, { experiencia, preferencias }) => {
   const sqlQuery = `
-    UPDATE paseador SET nombre = $2, raza = $3, edad = $4, peso = $5, genero = $6
+    UPDATE paseador SET experiencia = $2, preferencias = $3
     WHERE id = $1 RETURNING *;`
-  return await db(sqlQuery, [id, nombre, raza, edad, peso, genero])
+  return await db(sqlQuery, [id, experiencia, preferencias])
 }
 
 export const deleteById = async (id) => await db('DELETE FROM paseador WHERE id = $1 RETURNING *;', [id])
